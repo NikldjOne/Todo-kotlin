@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Todo-kotlin</string>
+    <string name="todo_list">Todo List</string>
+    <string name="add_task">Введите задачу</string>
+    <string name="add_button">Добавить</string>
+    <string name="all_task">Все</string>
+    <string name="task_unfulfiled">Только невыполненные</string>
+    <string name="task_done">Только выполненные</string>
+</resources>
