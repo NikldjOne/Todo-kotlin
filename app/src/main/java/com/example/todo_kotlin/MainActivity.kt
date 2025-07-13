@@ -13,11 +13,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todo_kotlin.adapter.TaskAdapter
 import com.example.todo_kotlin.databinding.ActivityMainBinding
 import com.example.todo_kotlin.model.Task
+import com.example.todo_kotlin.model.TaskFilter
 
 class MainActivity : ComponentActivity() {
     private lateinit var binding: ActivityMainBinding;
     private val mutableList: MutableList<Task> = mutableListOf()
     private lateinit var adapter: TaskAdapter
+    private var currentFilter: TaskFilter = TaskFilter.ALL
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,18 +27,20 @@ class MainActivity : ComponentActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupInsets()
-        setupRecyclerView()
+        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+        updateAdapter()
         setupAddTaskButton()
+        setupFilterRadioGroup()
     }
 
-    private fun setupRecyclerView() {
-        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+    private fun updateAdapter() {
         adapter = TaskAdapter(
-            mutableList,
+            getFilteredTasks(),
             ::onTaskCheckedChange,
             ::onTaskDelete
         )
         binding.recyclerView.adapter = adapter
+        adapter.notifyDataSetChanged()
     }
 
     private fun setupAddTaskButton() {
@@ -58,6 +62,24 @@ class MainActivity : ComponentActivity() {
         val done = mutableList.count { it.isChecked }
         val percent = if (total > 0) (done * 100) / total else 0
         binding.progressBar.progress = percent
+    }
+
+    private fun getFilteredTasks(): List<Task> = when (currentFilter) {
+        TaskFilter.ALL -> mutableList
+        TaskFilter.DONE -> mutableList.filter { it.isChecked }
+        TaskFilter.UNFULFILLED -> mutableList.filter { !it.isChecked }
+    }
+
+    private fun setupFilterRadioGroup() {
+        binding.radioGroup.setOnCheckedChangeListener { _, checkedId ->
+            currentFilter = when (checkedId) {
+                R.id.radio_all -> TaskFilter.ALL
+                R.id.radio_done -> TaskFilter.DONE
+                R.id.radio_unfulfiled -> TaskFilter.UNFULFILLED
+                else -> TaskFilter.ALL
+            }
+            updateAdapter()
+        }
     }
 
 
