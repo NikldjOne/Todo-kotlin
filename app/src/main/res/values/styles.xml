@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="TaskTextAppearance" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textColor">?attr/colorOnBackground</item>
+        <item name="android:textSize">@dimen/FONT_SIZE_14</item>
+    </style>
+    <style name="AddButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="android:backgroundTint">?attr/colorPrimary</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="cornerRadius">16dp</item>
+    </style>
+    <style name="TaskCardStyle" parent="Widget.MaterialComponents.CardView">
+        <item name="cardElevation">3dp</item>
+    </style>
+</resources>

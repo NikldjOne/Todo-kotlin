@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="PADDING_16">32dp</dimen>
+    <dimen name="PADDING_8">16dp</dimen>
+    <dimen name="MARGIN_12">24dp</dimen>
+    <dimen name="FONT_SIZE_14">28sp</dimen>
+    <dimen name="WIDTH_ICON">80dp</dimen>
+</resources>
